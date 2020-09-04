@@ -30,6 +30,12 @@ public:
     void insert(int x)
     {
         heap.push_back(x);
+
+        int root = x;
+        while(root != 0) {
+            root = get_parent_index(root);
+            max_heapify(root);
+        }
     }
 
     // builds a max_heap from an unordered array
@@ -47,7 +53,7 @@ public:
         return heap[0];
     }
 
-    // get the maxium value and removes it from the priority queue
+    // get the maximum value and removes it from the priority queue
     int extract_max()
     {
         int res = heap[0];
@@ -117,6 +123,26 @@ private:
     }
 };
 
+
+void TestMaxHeap()
+{
+    vector<int> nums{1, 2, 3, 4, 5};
+
+    MaxHeap maxHeap(nums);
+    maxHeap.display();
+
+    for(int i = 0; i < 5; ++i) {
+        cout << maxHeap.extract_max() << endl;
+        cout << "After extract_max: ";
+        maxHeap.display();
+    }
+
+    for(int i = 1; i <= 5; ++i) {
+        maxHeap.insert(i);
+        cout << "After inserting " << i << ": "<< endl;
+        maxHeap.display();
+    }
+}
 
 
 #endif //DATA_STRUCTURE_ALGORITHMS_MAXHEAP_H
